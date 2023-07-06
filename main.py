@@ -2,6 +2,7 @@ import psutil
 import csv
 import time
 import pynvml
+import sys
 
 try:
     pynvml.nvmlInit()
@@ -23,7 +24,8 @@ def get_gpu_usage():
 
 def log_system_usage(duration):
     start_time = time.time()
-    end_time = start_time + duration
+    if duration > 0:
+        end_time = start_time + duration
     
     with open('system_usage_log.csv', 'w', newline='') as log_file:
         writer = csv.writer(log_file)
@@ -33,7 +35,7 @@ def log_system_usage(duration):
             columns.append('GPU Usage (%)')
         writer.writerow( columns)
     prev_net_io = psutil.net_io_counters()
-    while time.time() < end_time:
+    while duration < 0 or time.time() < end_time:
         with open('system_usage_log.csv', 'a+', newline='') as log_file:
             writer = csv.writer(log_file)
             cpu_percent = psutil.cpu_percent()
@@ -52,6 +54,11 @@ def log_system_usage(duration):
     print('System usage log saved to system_usage_log.csv')
 
 # Specify the duration in seconds for which you want to log system usage
-log_duration = 300  # 5 minutes
+if __name__ == '__main__':
+    if len(sys.argv):
+        log_duration = int(sys.argv[1])
+    else:
+        log_duration = 300  # 5 minutes
 
-log_system_usage(log_duration)
+    log_system_usage(log_duration)
+

@@ -1,26 +1,30 @@
 import psutil
 import csv
 import time
-import pynvml
 import sys
+from py3nvml import py3nvml
 
-try:
-    pynvml.nvmlInit()
-    print("DETECTED NVIDIA GPU")
-    gpu_available = True
-    gpu_handle = pynvml.nvmlDeviceGetHandleByIndex(0)  # Assuming a single GPU is present
-except ImportError:
-    gpu_available = False
+def detect_gpu():
+    py3nvml.nvmlInit()
+    return py3nvml.nvmlDeviceGetCount() > 0
+
+def get_gpu_usage():
+    py3nvml.nvmlInit()
+    device_count = py3nvml.nvmlDeviceGetCount()
+    usage = 0
+    total = 0
+    for i in range(device_count):
+        handle = py3nvml.nvmlDeviceGetHandleByIndex(i)
+        info = py3nvml.nvmlDeviceGetUtilizationRates(handle)
+        if info.gpu > 0:
+            usage += info.gpu
+            total += 1
+            
+    return usage / max(1,total)
 
 def bytes_to_kilobytes(bytes):
     return bytes / 1024
 
-def get_gpu_usage():
-    if gpu_available:
-        gpu_info = pynvml.nvmlDeviceGetUtilizationRates(gpu_handle)
-        return gpu_info.gpu
-    else:
-        return None
 
 def log_system_usage(duration):
     start_time = time.time()
@@ -31,7 +35,7 @@ def log_system_usage(duration):
         writer = csv.writer(log_file)
         columns = ['Time',  'Sent (KB/s)', 'Received (KB/s)', 'CPU Usage (%)',
                    'Memory Usage (%)']
-        if gpu_available:
+        if detect_gpu():
             columns.append('GPU Usage (%)')
         writer.writerow( columns)
     prev_net_io = psutil.net_io_counters()

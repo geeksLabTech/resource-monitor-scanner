@@ -11,5 +11,8 @@ recording data until forced to stop (Ctrl+C)
 
 at any time of the execution it can be stopped and there will still be a valid csv to use
 
-# GPU Support
-The system actually onlyu supports NVIDIA GPUs
+# GPU and OS Support
+The system theoretically supports both AMD and NVIDIA GPUs, and also multiple GPUs but it has only been tested in a single NVIDIA GPU, in an ArchLinux system.
+
+# Contributions
+All contributions are wellcome, even testing in different hardware configurations.

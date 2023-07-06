@@ -4,7 +4,8 @@
 `pip install -r requirements.txt`
 
 # Running
-running the script will log the stats to a csv, if time is not passed it will take 300s (5 min) as default recording duration
+running the script will log the stats to a csv, if time is not passed it will take 300s (5 min) as default recording duration, if called with negative duration it will be 
+recording data until forced to stop (Ctrl+C)
 
 `python main.py <time>`
 

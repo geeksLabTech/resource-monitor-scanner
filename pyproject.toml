@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "resource-monitor-scanner"
+version = "0.1.0"
+description = ""
+authors = ["JavierOramas <javiale2000@gmail.com>", "DanielUH2019 <danielcardenascabrera2016@gmail.com>", "Lia001218 <liazerqueraf@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "resource_monitor_scanner"}]
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.12"
+pandas = "^1.5.3"
+psutil = "^5.9.4"
+py3nvml = "^0.2.7"
+streamlit = "^1.24.0"
+matplotlib = "^3.7.2"
+seaborn = "^0.12"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

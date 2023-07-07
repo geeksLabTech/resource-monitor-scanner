@@ -26,7 +26,7 @@ def bytes_to_kilobytes(bytes):
     return bytes / 1024
 
 
-def log_system_usage(duration):
+def log_system_usage(duration=300):
     start_time = time.time()
     if duration > 0:
         end_time = start_time + duration

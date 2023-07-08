@@ -90,7 +90,7 @@ def log_system_usage(duration):
 
 # Specify the duration in seconds for which you want to log system usage
 if __name__ == '__main__':
-    if len(sys.argv) > 1:
+    if len(sys.argv):
         log_duration = int(sys.argv[1])
     else:
         log_duration = 300  # 5 minutes

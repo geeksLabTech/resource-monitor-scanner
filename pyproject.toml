@@ -19,3 +19,7 @@ seaborn = "^0.12"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tools.poetry.script]
+log = 'resource_monitor_scanner.main:log_system_usage'
+gui = 'resource_monitor_scanner.gui:serve'

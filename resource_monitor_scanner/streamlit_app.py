@@ -3,8 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from time import sleep
-from streamlit.web import bootstrap
-from streamlit import config as _config
+
 
 def launch_gui(csv_name='system_usage_log.csv'):
     while True:
@@ -99,9 +98,5 @@ def launch_gui(csv_name='system_usage_log.csv'):
         st.experimental_rerun()
 
 
-def serve():
-    _config.set_option("server.headless", True)
-    bootstrap.run('streamlit_app.py', '', [])
-
 if __name__ == '__main__':
-    serve()
+    launch_gui()
